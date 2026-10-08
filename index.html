@@ -1,0 +1,1016 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>تأهيل خريجي النفط والغاز</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;500;600&family=IBM+Plex+Sans+Arabic:wght@400;500&display=swap">
+<style>
+/* Layout: one centred card per step (intake, welcome, axis 1 pick, axis 1 explain, summary). Golden-circle diagram is the only illustration. */
+:root{
+  --bg:#F5F3EE;
+  --fg:#22201C;
+  --muted:#6A665D;
+  --line:#DAD6CA;
+  --surface:#FFFFFF;
+  --gold:#C98F25;
+  --gold-soft:#F1DDAE;
+  --gold-faint:#FAF1DC;
+  --gold-ink:#7A4E0B;
+  --on-gold:#2A1C06;
+  --bad:#9A2C1D;--bad-bg:#F8E3DF;--ok-bg:#E4F0E2;--ok-fg:#1F5A2B;--sel:#FFF1D9;--why-bg:#2B2A26;--why-fg:#F6F5F1;--why-muted:#BDB9AD;--x:#D2321F;--rock-a:#6B6A64;--rock-b:#55544F;--stone:#D4903A;--sand:#E9D8A2;--sand-dot:#B89B4A;
+  --font-display:"Readex Pro","Segoe UI",Tahoma,sans-serif;
+  --font-body:"IBM Plex Sans Arabic","Segoe UI",Tahoma,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#181714;
+    --fg:#EDEAE1;
+    --muted:#A6A194;
+    --line:#38352E;
+    --surface:#232120;
+    --gold:#E0A94A;
+    --gold-soft:#5A431A;
+    --gold-faint:#2E2619;
+    --gold-ink:#F0C879;
+    --on-gold:#241802;
+    --bad:#F2A99B;--bad-bg:#43211C;--ok-bg:#20382A;--ok-fg:#A9DDB4;--sel:#3B3020;--why-bg:#35332C;--why-fg:#F3EFE2;--why-muted:#B5B0A2;--x:#FF6B57;--rock-a:#8C8B84;--rock-b:#73726B;--stone:#E0A04D;--sand:#CDB978;--sand-dot:#E9D8A2;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#181714;
+  --fg:#EDEAE1;
+  --muted:#A6A194;
+  --line:#38352E;
+  --surface:#232120;
+  --gold:#E0A94A;
+  --gold-soft:#5A431A;
+  --gold-faint:#2E2619;
+  --gold-ink:#F0C879;
+  --on-gold:#241802;
+  --bad:#F2A99B;--bad-bg:#43211C;--ok-bg:#20382A;--ok-fg:#A9DDB4;--sel:#3B3020;--why-bg:#35332C;--why-fg:#F3EFE2;--why-muted:#B5B0A2;--x:#FF6B57;--rock-a:#8C8B84;--rock-b:#73726B;--stone:#E0A04D;--sand:#CDB978;--sand-dot:#E9D8A2;
+  color-scheme:dark;
+}
+body{
+  background:var(--bg);
+  color:var(--fg);
+  font-family:var(--font-body);
+  font-size:16px;
+  line-height:1.75;
+  padding-inline:16px;
+  padding-block:24px 56px;
+}
+.wrap{max-width:560px;margin-inline:auto}
+.step{display:flex;flex-direction:column;gap:18px;min-width:0}
+h1,h2{font-family:var(--font-display);margin:0;text-wrap:balance}
+h1{font-weight:600;font-size:1.6rem;line-height:1.45}
+h2{font-weight:500;font-size:1.15rem;line-height:1.5}
+p{margin:0}
+.lbl{font-size:.88rem;color:var(--gold-ink);letter-spacing:.03em;font-weight:500}
+.muted{color:var(--muted)}
+.hint{color:var(--muted);font-size:.92rem}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label,.qtitle{font-weight:500}
+input[type=text]{font:inherit;font-size:1rem;color:var(--fg);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:10px 14px;min-height:44px;width:100%}
+input[type=text]:focus-visible{outline:3px solid var(--gold);outline-offset:1px}
+.list{display:flex;flex-direction:column;gap:8px}
+.choice{position:relative;display:block}
+.choice input{position:absolute;opacity:0;inset:0;width:100%;height:100%;margin:0;cursor:pointer}
+.choice .bx{display:block;padding:11px 14px;background:var(--surface);border:1px solid var(--line);border-radius:8px;line-height:1.55}
+.choice:hover .bx{border-color:var(--muted)}
+.choice input:checked + .bx{background:var(--gold-faint);border-color:var(--gold);box-shadow:0 0 0 2px var(--gold)}
+.choice input:focus-visible + .bx{outline:3px solid var(--gold);outline-offset:2px}
+.rk{display:flex;align-items:center;gap:12px;width:100%;text-align:start;font:inherit;color:var(--fg);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:9px 14px;min-height:46px;cursor:pointer}
+.rk:hover{border-color:var(--muted)}
+.rk[aria-pressed="true"]{background:var(--gold-faint);border-color:var(--gold);box-shadow:0 0 0 2px var(--gold)}
+.rk .bd{flex:none;width:28px;height:28px;border-radius:50%;border:1.5px solid var(--line);display:grid;place-items:center;font-family:var(--font-display);font-weight:500;font-size:.9rem;font-variant-numeric:tabular-nums}
+.rk[aria-pressed="true"] .bd{background:var(--gold);border-color:var(--gold);color:var(--on-gold)}
+.rkbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:2px}
+.err{color:var(--bad);font-size:.92rem;min-height:1.4em}
+.btn{align-self:flex-start;font:inherit;font-weight:500;background:var(--gold);color:var(--on-gold);border:0;border-radius:8px;padding:11px 22px;min-height:44px;cursor:pointer}
+.btn:hover{filter:brightness(1.06)}
+button:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.ghost{font:inherit;font-size:.92rem;background:none;color:var(--fg);border:1px solid var(--line);border-radius:8px;padding:8px 16px;cursor:pointer}
+.ghost:hover{border-color:var(--muted)}
+.row{display:flex;flex-wrap:wrap;gap:10px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px}
+.welcome{background:var(--gold-faint);border:1px solid var(--gold-soft);border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:10px}
+svg.gc{display:block;width:100%;height:auto;max-width:300px;margin:0 auto}
+.gc .o{fill:var(--surface);stroke:var(--gold);stroke-width:2}
+.gc .m{fill:var(--gold-soft);stroke:var(--gold);stroke-width:2}
+.gc .i{fill:var(--gold)}
+.gc text{font-family:var(--font-display);font-weight:500;text-anchor:middle}
+.gc .tx{fill:var(--fg);font-size:15px}
+.gc .ti{fill:var(--on-gold);font-size:17px}
+.cap{text-align:center;font-size:.9rem;color:var(--muted)}
+.fb{padding:14px 16px;border-radius:8px;background:var(--gold-faint);border:1px solid var(--gold-soft)}
+.cards{display:flex;flex-direction:column;gap:8px}
+.card{display:block;width:100%;text-align:start;font:inherit;color:var(--fg);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:12px 14px;cursor:pointer}
+.card:hover{border-color:var(--muted)}
+.card[aria-pressed="true"]{background:var(--gold-faint);border-color:var(--gold);box-shadow:0 0 0 2px var(--gold)}
+.card b{display:block;font-weight:500}
+.card span{display:block;color:var(--muted);font-size:.92rem;line-height:1.6;margin-top:2px}
+.quote{font-family:var(--font-display);font-weight:500;font-size:1.25rem;line-height:1.7}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.two .field{min-width:0}
+.idline{font-size:.92rem;color:var(--gold-ink);font-weight:500;margin-bottom:6px}
+ul.goals{margin:10px 0 0;padding-inline-start:1.3rem;display:flex;flex-direction:column;gap:6px}
+ul.goals li{line-height:1.7}
+ul.goals li::marker{color:var(--gold)}
+*,*::before,*::after{box-sizing:border-box}
+.why{background:var(--why-bg);color:var(--why-fg);border-radius:12px;padding:22px 20px;display:flex;flex-direction:column;gap:8px}
+.why .wlbl{margin:0;font-size:.85rem;letter-spacing:.04em;color:var(--why-muted)}
+.why h1{color:var(--why-fg)}
+.stage{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 8px 4px}
+svg.box{display:block;width:100%;height:auto;max-width:380px;margin-inline:auto}
+.box .wall{fill:none;stroke:var(--muted);stroke-width:4;stroke-linejoin:round;stroke-linecap:round}
+.lyr{transition:transform .6s ease-out,opacity .5s ease-out}
+.lyr.off{opacity:0}
+.lyr.drop.off{transform:translateY(-60px)}
+.ra{fill:var(--rock-a)}
+.rb{fill:var(--rock-b)}
+.st{fill:var(--stone)}
+.sd{fill:var(--sand)}
+.sdot{fill:var(--sand-dot)}
+.xmark{transform-origin:190px 200px;transition:transform .35s cubic-bezier(.3,1.5,.5,1),opacity .25s}
+.xmark.off{opacity:0;transform:scale(.4)}
+.xmark circle{fill:none;stroke:var(--x);stroke-width:10}
+.xmark line{stroke:var(--x);stroke-width:16;stroke-linecap:round}
+.shake{animation:sh .4s}
+@keyframes sh{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-6px)}80%{transform:translateX(6px)}}
+.msg{margin:0;padding:12px 14px;border-radius:8px;background:var(--surface);border:1px solid var(--line);color:var(--muted);font-size:.95rem;min-height:3.6em}
+.msg.ok{background:var(--ok-bg);border-color:transparent;color:var(--ok-fg)}
+.msg.bad{background:var(--bad-bg);border-color:transparent;color:var(--bad);font-weight:500}
+.opts{display:grid;grid-template-columns:1fr;gap:10px}
+.opt{display:flex;align-items:center;gap:14px;width:100%;padding:10px 14px;background:var(--surface);color:var(--fg);border:1px solid var(--line);border-radius:8px;font:inherit;font-size:1rem;text-align:start;cursor:pointer;transition:border-color .15s,opacity .2s}
+.opt:hover{border-color:var(--muted)}
+.opt[data-done="1"]{opacity:.45;cursor:default}
+.opts.locked .opt{opacity:.45;cursor:default}
+.opt svg{flex:none}
+.rst{align-self:flex-start;background:none;border:1px solid var(--line);border-radius:8px;padding:6px 14px;color:var(--fg);font:inherit;font-size:.9rem;cursor:pointer}
+.rst:hover{border-color:var(--muted)}
+.pool{display:flex;flex-wrap:wrap;gap:10px;padding:14px;background:var(--surface);border:1px solid var(--line);border-radius:12px;min-height:60px}
+.chip{background:var(--bg);color:var(--fg);border:1px solid var(--line);border-radius:999px;padding:8px 14px;min-height:40px;font:inherit;font-size:.95rem;line-height:1.4;cursor:pointer;text-align:start}
+.chip:hover{border-color:var(--muted)}
+.chip[aria-pressed="true"]{background:var(--sel);border-color:var(--stone);box-shadow:0 0 0 2px var(--stone)}
+.pool .empty{margin:0;color:var(--muted);font-size:.95rem}
+.targets{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.tgt{display:flex;flex-direction:column;align-items:center;gap:2px;padding:10px 6px;background:var(--surface);color:var(--fg);border:1px solid var(--line);border-radius:8px;font:inherit;font-size:.95rem;cursor:pointer}
+.tgt:hover{border-color:var(--muted)}
+.tgt .dot{width:18px;height:18px;border-radius:50%}
+.tgt .n{font-size:.8rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.plan{display:flex;flex-direction:column;gap:12px}
+.grp{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:10px}
+.grp header{display:flex;align-items:center;gap:10px}
+.grp .num{flex:none;width:26px;height:26px;border-radius:50%;background:var(--bg);border:1px solid var(--line);display:grid;place-items:center;font-size:.85rem;font-variant-numeric:tabular-nums}
+.grp h3{margin:0;font-family:var(--font-display);font-weight:500;font-size:1rem}
+.grp .when{margin-inline-start:auto;color:var(--muted);font-size:.85rem}
+.grp .chips{display:flex;flex-wrap:wrap;gap:8px}
+.grp .none{margin:0;color:var(--muted);font-size:.9rem}
+.dn h3{margin:0 0 2px;font-family:var(--font-display);font-weight:500;font-size:1.02rem}
+textarea{font:inherit;font-size:.8rem;color:var(--fg);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:10px 12px;width:100%;min-height:76px;direction:ltr;text-align:left;resize:vertical;word-break:break-all}
+textarea:focus-visible{outline:3px solid var(--gold);outline-offset:1px}
+details.prog summary{cursor:pointer;font-weight:500}
+details.prog[open] summary{margin-bottom:12px}
+.prog .field+.field{margin-top:16px}
+.prog .ghost{align-self:flex-start}
+.mxn{font-size:.88rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.mx{display:grid;grid-template-columns:3.6rem minmax(0,1fr) minmax(0,1fr);gap:8px}
+.mx-h{align-self:end;text-align:center;font-size:.85rem;color:var(--muted)}
+.mx-v{display:flex;align-items:center;font-size:.85rem;color:var(--muted)}
+.mq{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:8px;min-height:84px;padding:10px 12px;background:var(--surface);color:var(--fg);border:1px solid var(--line);border-radius:8px;font:inherit;font-size:.98rem;line-height:1.5;text-align:start;cursor:pointer}
+.mq .dot{flex:none;width:16px;height:16px;border-radius:50%}
+.mq[data-q="q1"] .dot{background:var(--rock-a)}
+.mq[data-q="q2"] .dot{background:var(--rock-b)}
+.mq[data-q="q3"] .dot{background:var(--stone)}
+.mq[data-q="q4"] .dot{background:var(--sand-dot)}
+.mq:hover:not(:disabled){border-color:var(--muted)}
+.mq:disabled{color:var(--fg);cursor:default}
+.mq:disabled:not(.right):not(.wrong){opacity:.55}
+.mq.right{background:var(--ok-bg);border-color:var(--ok-fg);box-shadow:0 0 0 2px var(--ok-fg)}
+.mq.wrong{background:var(--bad-bg);border-color:var(--bad)}
+.mxmap{display:flex;flex-direction:column;gap:12px}
+.mxmap h3{margin:0;font-family:var(--font-display);font-weight:500;font-size:1.02rem}
+.mrow{display:flex;gap:12px;align-items:flex-start}
+.mrow .dot{flex:none;width:16px;height:16px;border-radius:50%;margin-top:.5rem}
+.mr1{background:var(--rock-a)}
+.mr2{background:var(--stone)}
+.mr3{background:var(--sand-dot)}
+.rv{border-top:1px solid var(--line);padding-top:12px;display:flex;flex-direction:column;gap:4px}
+.rv b{font-weight:500}
+@media (prefers-reduced-motion: reduce){.lyr,.opt,.xmark{transition:none}.shake{animation:none}}
+
+</style>
+<main class="wrap" dir="rtl" lang="ar">
+
+  <noscript>
+    <div class="fb" style="margin-bottom:18px">
+      <p><b>الأزرار ما تشتغل في هذا العرض.</b> هذي الصفحة تحتاج متصفحاً. إذا فتحتها من معاينة الملفات أو من داخل واتساب أو تيليغرام، افتح رابطها بمتصفح سفاري أو كروم.</p>
+    </div>
+  </noscript>
+
+  <section id="s-intake" class="step">
+    <p class="lbl">برنامج تأهيل طلبة المرحلة الرابعة</p>
+    <h1>قبل أن نبدأ، لنتعرّف عليك</h1>
+    <div class="field">
+      <label for="name">الاسم الثلاثي</label>
+      <input id="name" type="text" autocomplete="name" maxlength="80" placeholder="الاسم الأول واسم الأب واسم الجد">
+      <p id="e-name" class="err" aria-live="polite"></p>
+    </div>
+    <div class="two">
+      <div class="field">
+        <label for="sec">الشعبة</label>
+        <input id="sec" type="text" maxlength="20" autocomplete="off" placeholder="مثال: أ">
+        <p id="e-sec" class="err" aria-live="polite"></p>
+      </div>
+      <div class="field">
+        <label for="num">رقم الطالب</label>
+        <input id="num" type="text" inputmode="numeric" maxlength="12" autocomplete="off" placeholder="مثال: 17">
+        <p id="e-num" class="err" aria-live="polite"></p>
+      </div>
+    </div>
+    <div>
+      <p class="qtitle" id="q-subj">ما المواد التي تحبّها في هندسة النفط والغاز؟</p>
+      <p class="hint" style="margin-top:2px">اضغط على المواد بالترتيب، من الأحبّ إليك إلى الأقل حباً. يمكنك اختيار مادة واحدة أو أكثر، والضغط مرة أخرى يلغي الاختيار.</p>
+      <div id="subj" class="list" role="group" aria-labelledby="q-subj" style="margin-top:10px"></div>
+      <div class="rkbar">
+        <p id="cnt" class="hint" aria-live="polite">لم تختر شيئاً بعد.</p>
+        <button id="clr" class="ghost" type="button">مسح الاختيار</button>
+      </div>
+      <p id="e-subj" class="err" aria-live="polite"></p>
+    </div>
+    <button id="go1" class="btn">متابعة</button>
+  </section>
+
+  <section id="s-welcome" class="step" hidden>
+    <div class="welcome">
+      <p class="lbl">أهلاً بك</p>
+      <h1 id="w-title"></h1>
+      <p id="w-body"></p>
+    </div>
+    <p>يسير البرنامج في ستة محاور. نبدأ بالمحور الأول: الغاية، أي لماذا تدرس هندسة النفط أصلاً، ثم نبني عليها بقية المحاور.</p>
+    <button id="go2" class="btn">ابدأ المحور الأول</button>
+  </section>
+
+  <section id="s-pick" class="step" hidden>
+    <p class="lbl">المحور الأول · الغاية</p>
+    <h1>لماذا تدرس هندسة النفط؟</h1>
+    <svg class="gc" viewBox="0 0 300 270" role="img" aria-label="الدائرة الذهبية: لماذا في المركز، ثم كيف، ثم ماذا في الخارج">
+      <circle class="o" cx="150" cy="135" r="125"/>
+      <circle class="m" cx="150" cy="135" r="84"/>
+      <circle class="i" cx="150" cy="135" r="44"/>
+      <text class="tx" x="150" y="38">ماذا</text>
+      <text class="tx" x="150" y="86">كيف</text>
+      <text class="ti" x="150" y="141">لماذا</text>
+    </svg>
+    <p class="cap">الدائرة الذهبية لسايمن سينيك: يتأثر الناس بـ «لماذا» قبل «ماذا».</p>
+    <div>
+      <p class="qtitle" id="q-why">اختر العبارات القريبة من سبب دراستك:</p>
+      <p class="hint" style="margin-top:2px">يمكنك اختيار أكثر من عبارة.</p>
+      <div id="whyopts" class="list" role="group" aria-labelledby="q-why" style="margin-top:10px"></div>
+      <p id="e-why" class="err" aria-live="polite"></p>
+    </div>
+    <button id="go3" class="btn">تثبيت الاختيار</button>
+  </section>
+
+  <section id="s-explain" class="step" hidden>
+    <p class="lbl">المحور الأول · الغاية</p>
+    <div id="fb" class="fb" aria-live="polite"></div>
+    <h2>الـ Why الجيد غاية نبيلة تتجاوز صاحبها. إليك خمسة أمثلة:</h2>
+    <p class="hint">اختر ما يعنيك منها، واحدة أو أكثر.</p>
+    <div id="cards" class="cards"></div>
+    <p id="e-card" class="err" aria-live="polite"></p>
+    <div class="row">
+      <button id="go4" class="btn">هذه غايتي</button>
+      <button id="back1" class="ghost">رجوع</button>
+    </div>
+  </section>
+
+  <section id="s-final" class="step" hidden>
+    <p class="lbl">لماذا الخاصة بك</p>
+    <div class="panel">
+      <p id="f-id" class="idline"></p>
+      <p id="f-quote" class="quote"></p>
+      <ul id="f-goals" class="goals"></ul>
+      <p id="f-sub" class="muted" style="margin-top:14px"></p>
+    </div>
+    <p>هذه بوصلتك في البرنامج كله. وكل مهارة نتعلمها بعد ذلك، من ترتيب الأولويات إلى التركيز والعادات وسوق العمل، نقيسها بسؤال واحد: هل تقرّبني من هذه الغاية؟</p>
+    <button id="go5" class="btn">ابدأ المحور الثاني: الأولويات</button>
+    <div class="row">
+      <button id="edit" class="ghost">تغيير غاياتي</button>
+      <button id="editinfo" class="ghost">تعديل بياناتي</button>
+      <button id="reset" class="ghost">مسح المحفوظ</button>
+    </div>
+    <div id="conf" class="fb" hidden>
+      <p>سيُحذف كل ما حُفظ على هذا الجهاز، ويبدأ البرنامج من جديد. هل أنت متأكد؟</p>
+      <div class="row" style="margin-top:10px">
+        <button id="yes" class="ghost">نعم، امسح</button>
+        <button id="no" class="ghost">إلغاء</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="s-p2a" class="step" hidden>
+    <p class="lbl">المحور الثاني · الأولويات · الخطوة 1 من 3</p>
+    <div class="why">
+      <p class="wlbl">ليش أرتّب مهامي؟</p>
+      <h1>حتى أتخرج وأنا جاهز لسوق العمل، وأصرف وقتي على الأشياء اللي تغيّر مستقبلي.</h1>
+    </div>
+    <h2>شنو نحط بالصندوق أول شي؟</h2>
+    <p class="hint">صندوق واحد وثلاث مجاميع. رتّب الدخول مثل ما تشوف مناسب.</p>
+    <div class="stage">
+      <svg id="bx" class="box" viewBox="0 0 380 330" role="img" aria-label="صندوق مفتوح من الأعلى تدخله ثلاث مجاميع: أحجار كبيرة وأحجار وسط وأحجار صغيرة">
+        <g transform="translate(0,80)">
+          <rect id="sand" class="lyr off sd" x="114" y="36" width="152" height="178"/>
+          <g id="big" class="lyr drop off">
+            <circle class="ra" cx="140" cy="190" r="24"/>
+            <circle class="rb" cx="190" cy="190" r="24"/>
+            <circle class="ra" cx="240" cy="190" r="24"/>
+            <circle class="rb" cx="165" cy="146" r="24"/>
+            <circle class="ra" cx="215" cy="146" r="24"/>
+          </g>
+          <g id="medGap" class="lyr drop off st">
+            <circle cx="128" cy="100" r="11"/><circle cx="152" cy="100" r="11"/><circle cx="176" cy="100" r="11"/><circle cx="200" cy="100" r="11"/><circle cx="224" cy="100" r="11"/><circle cx="248" cy="100" r="11"/>
+            <circle cx="140" cy="78" r="11"/><circle cx="164" cy="78" r="11"/><circle cx="188" cy="78" r="11"/><circle cx="212" cy="78" r="11"/><circle cx="236" cy="78" r="11"/>
+            <circle cx="128" cy="56" r="11"/><circle cx="152" cy="56" r="11"/><circle cx="176" cy="56" r="11"/><circle cx="200" cy="56" r="11"/><circle cx="224" cy="56" r="11"/><circle cx="248" cy="56" r="11"/>
+          </g>
+          <g id="medFull" class="lyr drop off st"></g>
+          <path class="wall" d="M110 20 V220 H270 V20"/>
+        </g>
+        <g id="bigOut" class="lyr drop off">
+          <circle class="ra" cx="140" cy="72" r="24"/>
+          <circle class="rb" cx="190" cy="72" r="24"/>
+          <circle class="ra" cx="240" cy="72" r="24"/>
+          <circle class="rb" cx="165" cy="28" r="24"/>
+          <circle class="ra" cx="215" cy="28" r="24"/>
+        </g>
+        <g id="medOut" class="lyr drop off st">
+          <circle cx="128" cy="88" r="11"/><circle cx="152" cy="88" r="11"/><circle cx="176" cy="88" r="11"/><circle cx="200" cy="88" r="11"/><circle cx="224" cy="88" r="11"/><circle cx="248" cy="88" r="11"/>
+          <circle cx="140" cy="66" r="11"/><circle cx="164" cy="66" r="11"/><circle cx="188" cy="66" r="11"/><circle cx="212" cy="66" r="11"/><circle cx="236" cy="66" r="11"/>
+        </g>
+        <g id="xmark" class="xmark off">
+          <circle cx="190" cy="200" r="92"/>
+          <line x1="140" y1="150" x2="240" y2="250"/>
+          <line x1="240" y1="150" x2="140" y2="250"/>
+        </g>
+      </svg>
+    </div>
+
+    <p id="msg" class="msg" aria-live="polite">لسا ما اخترت شي.</p>
+
+    <div id="opts" class="opts">
+      <button class="opt" data-k="big" id="opt-big">
+        <svg width="70" height="40" viewBox="0 0 70 40" aria-hidden="true"><circle class="ra" cx="16" cy="25" r="13"/><circle class="rb" cx="44" cy="25" r="13"/><circle class="ra" cx="31" cy="13" r="10"/></svg>
+        <span>أحجار كبيرة</span>
+      </button>
+      <button class="opt" data-k="med" id="opt-med">
+        <svg width="70" height="40" viewBox="0 0 70 40" aria-hidden="true" class="st"><circle cx="10" cy="29" r="7"/><circle cx="26" cy="29" r="7"/><circle cx="42" cy="29" r="7"/><circle cx="58" cy="29" r="7"/><circle cx="18" cy="14" r="7"/><circle cx="34" cy="14" r="7"/><circle cx="50" cy="14" r="7"/></svg>
+        <span>أحجار وسط</span>
+      </button>
+      <button class="opt" data-k="sand" id="opt-sand">
+        <svg width="70" height="40" viewBox="0 0 70 40" aria-hidden="true" class="sdot"><circle cx="8" cy="30" r="2"/><circle cx="16" cy="24" r="2"/><circle cx="24" cy="31" r="2"/><circle cx="32" cy="22" r="2"/><circle cx="40" cy="30" r="2"/><circle cx="48" cy="21" r="2"/><circle cx="56" cy="29" r="2"/><circle cx="62" cy="22" r="2"/><circle cx="20" cy="14" r="2"/><circle cx="36" cy="12" r="2"/><circle cx="52" cy="13" r="2"/><circle cx="12" cy="18" r="2"/><circle cx="44" cy="26" r="2"/><circle cx="28" cy="17" r="2"/></svg>
+        <span>أحجار صغيرة</span>
+      </button>
+    </div>
+
+    <button id="rst" class="rst">ابدأ من جديد</button>
+    <div class="row">
+      <button id="go6" class="btn">تابع: مصفوفة أيزنهاور</button>
+      <button id="back2" class="ghost">رجوع</button>
+    </div>
+  </section>
+
+  <section id="s-p2m" class="step" hidden>
+    <p class="lbl">المحور الثاني · الأولويات · الخطوة 2 من 3</p>
+    <h1>كيف أعرف المهم من المستعجل؟</h1>
+    <p>الصندوق علّمك إن الأهم يدخل أول. هسه تتعلم تحكم على أي مهمة بسؤالين. هل تقرّبني من غايتي؟ هذا هو <b>المهم</b>. وهل وقتها قريب أو ضاغط؟ هذا هو <b>المستعجل</b>. اسم هذي الأداة مصفوفة أيزنهاور.</p>
+    <p id="mx-compass" class="fb"></p>
+
+    <div id="mx-play" class="step">
+      <p id="mx-cnt" class="mxn" aria-live="polite"></p>
+      <div class="panel"><p id="mx-card" class="quote"></p></div>
+      <p class="qtitle">وين تحط هذي المهمة؟</p>
+      <div id="mx-grid" class="mx" role="group" aria-label="مصفوفة أيزنهاور">
+        <span aria-hidden="true"></span>
+        <span class="mx-h">مستعجل</span>
+        <span class="mx-h">غير مستعجل</span>
+        <span class="mx-v">مهم</span>
+        <button type="button" class="mq" data-q="q1"><span class="dot"></span><span>سوّيه هسه</span></button>
+        <button type="button" class="mq" data-q="q2"><span class="dot"></span><span>خطّط له</span></button>
+        <span class="mx-v">غير مهم</span>
+        <button type="button" class="mq" data-q="q3"><span class="dot"></span><span>قلّله أو أجّله</span></button>
+        <button type="button" class="mq" data-q="q4"><span class="dot"></span><span>احذفه</span></button>
+      </div>
+      <p id="mx-fb" class="msg" aria-live="polite" hidden></p>
+      <div class="row">
+        <button id="mx-next" class="btn" type="button" hidden>البطاقة التالية</button>
+        <button id="mx-back" class="ghost" type="button">رجوع للصندوق</button>
+      </div>
+    </div>
+
+    <div id="mx-res" class="step" hidden>
+      <h2 id="mx-score"></h2>
+      <p id="mx-note"></p>
+      <div class="panel mxmap">
+        <h3>كيف تربطها بالأحجار</h3>
+        <div class="mrow"><span class="dot mr1"></span><p><b>مهم</b> (سوّيه هسه أو خطّط له) = أحجار كبيرة. المربع الثاني هو اللي ينساه أغلب الناس، لأن ما أحد يطالبك بيه.</p></div>
+        <div class="mrow"><span class="dot mr2"></span><p><b>مستعجل وغير مهم</b> = أحجار وسط أو صغيرة حسب الحالة. أعطه وقتاً قصيراً أو أجّله.</p></div>
+        <div class="mrow"><span class="dot mr3"></span><p><b>لا مهم ولا مستعجل</b> = رمل. يدخل أخيراً، أو ينحذف.</p></div>
+      </div>
+      <div id="mx-rev" class="step"></div>
+      <div class="row">
+        <button id="mx-go" class="btn" type="button">تابع: رتّب مهامك</button>
+        <button id="mx-redo" class="ghost" type="button">أعد اللعبة</button>
+        <button id="mx-back2" class="ghost" type="button">رجوع للصندوق</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="s-p2b" class="step" hidden>
+    <p class="lbl">المحور الثاني · الأولويات · الخطوة 3 من 3</p>
+    <h1>رتّب مهامك الحقيقية</h1>
+    <p class="hint">اسأل نفسك عن كل مهمة: هل تقرّبني من غايتي؟ وهل وقتها ضاغط؟ بعدين اضغط عليها واختار وين تروح: كبيرة، وسط، أو صغيرة. لكل مجموعة خمس مهام بالضبط.</p>
+    <div id="pool" class="pool"></div>
+
+    <div class="targets">
+      <button class="tgt" data-b="big" id="tgt-big"><span class="dot" style="background:var(--rock-a)"></span><span>كبيرة</span><span class="n" id="n-big">0/5</span></button>
+      <button class="tgt" data-b="med" id="tgt-med"><span class="dot" style="background:var(--stone)"></span><span>وسط</span><span class="n" id="n-med">0/5</span></button>
+      <button class="tgt" data-b="sand" id="tgt-sand"><span class="dot" style="background:var(--sand-dot)"></span><span>صغيرة</span><span class="n" id="n-sand">0/5</span></button>
+    </div>
+
+    <p id="hint" class="msg" aria-live="polite">اضغط على مهمة من المبعثرة أول.</p>
+
+    <div id="plan" class="plan">
+      <div class="grp" data-g="big">
+        <header><span class="num">1</span><h3>أحجار كبيرة</h3><span class="when">ابدأ فيها</span></header>
+        <div class="chips" id="g-big"></div>
+      </div>
+      <div class="grp" data-g="med">
+        <header><span class="num">2</span><h3>أحجار وسط</h3><span class="when">بعدها</span></header>
+        <div class="chips" id="g-med"></div>
+      </div>
+      <div class="grp" data-g="sand">
+        <header><span class="num">3</span><h3>أحجار صغيرة</h3><span class="when">أخيراً</span></header>
+        <div class="chips" id="g-sand"></div>
+      </div>
+    </div>
+
+    <button id="trst" class="rst">رجّع المهام للمبعثرة</button>
+    <p id="e-p2" class="err" aria-live="polite"></p>
+    <div class="row">
+      <button id="go7" class="btn">تثبيت ترتيبي</button>
+      <button id="back3" class="ghost">رجوع</button>
+    </div>
+  </section>
+
+  <section id="s-p2done" class="step" hidden>
+    <p class="lbl">المحور الثاني · ترتيبك</p>
+    <h1>هذا ترتيب أولوياتك</h1>
+    <div class="panel dn"><h3>أبدأ بالأحجار الكبيرة</h3><ul id="d-big" class="goals"></ul></div>
+    <div class="panel dn"><h3>بعدها الأحجار الوسط</h3><ul id="d-med" class="goals"></ul></div>
+    <div class="panel dn"><h3>وأخيراً الأحجار الصغيرة</h3><ul id="d-sand" class="goals"></ul></div>
+    <p>الأحجار الكبيرة هي اللي تقرّبك من غايتك. إذا انشغلت بالصغيرة أول، ما يبقى وقت للكبيرة.</p>
+    <p class="muted">المحور الثالث: التركيز والمشتتات. يُفتح بعد أن تنهي المجموعة هذا المحور.</p>
+    <div class="row">
+      <button id="redo" class="ghost">إعادة الترتيب</button>
+      <button id="tofinal" class="ghost">العودة إلى غايتي</button>
+    </div>
+  </section>
+
+  <details id="prog" class="panel prog">
+    <summary>حفظ تقدمي أو نقله إلى ملف جديد</summary>
+    <p class="hint">عند وصول إصدار جديد، انسخ رمز تقدمك من هنا، وافتح الإصدار الجديد والصقه في خانة الاسترجاع.</p>
+    <div class="field">
+      <label for="pc-out">رمز تقدمي</label>
+      <textarea id="pc-out" readonly rows="3"></textarea>
+      <button id="pc-copy" class="ghost" type="button">نسخ الرمز</button>
+    </div>
+    <div class="field">
+      <label for="pc-in">استرجاع من رمز سابق</label>
+      <textarea id="pc-in" rows="3" placeholder="الصق الرمز هنا"></textarea>
+      <button id="pc-go" class="ghost" type="button">استرجاع</button>
+    </div>
+    <p id="pc-msg" class="hint" aria-live="polite" style="margin-top:10px"></p>
+  </details>
+  <p id="savenote" class="hint" style="text-align:center;margin-top:28px">تُحفظ اختياراتك تلقائياً على هذا الجهاز، وتجدها عند عودتك.</p>
+  <p class="hint" style="text-align:center">الإصدار 3</p>
+</main>
+<script>
+var SUBJECTS=['هندسة الحفر','هندسة الإنتاج','هندسة المكامن','جسّ الآبار','إدارة المشاريع النفطية'];
+var WHYOPTS=[
+ {t:'لأن راتب هذا المجال مرتفع',k:'what'},
+ {t:'حتى أحافظ على حياة العاملين في الحقول والمنشآت',k:'safety'},
+ {t:'لأتعلّم حفر الآبار وتشغيل المكامن',k:'what'},
+ {t:'حتى أدعم اقتصاد بلدي وحياة الناس',k:'economy'},
+ {t:'لأن معدّلي أدخلني هذا القسم',k:'what'},
+ {t:'حتى أتوقّع المشكلات قبل وقوعها وأمنعها',k:'predict'},
+ {t:'لأحصل على شهادة هندسية مرموقة',k:'what'},
+ {t:'حتى أحمي المعدات والأصول من الخسائر',k:'assets'},
+ {t:'لأعمل في شركة نفطية كبرى وأسافر',k:'what'},
+ {t:'حتى أرفع كفاءة الإنتاج وأقلّل الهدر',k:'efficiency'}
+];
+var WHYS=[
+ {k:'safety',h:'حفظ حياة العاملين',d:'سلامة الإنسان أولاً؛ فكل قرار هندسي صحيح يعني عاملاً يعود إلى أهله سالماً.',q:'أحافظ على حياة العاملين في الحقول والمنشآت'},
+ {k:'assets',h:'حفظ الأصول والمعدات',d:'منشآت وأجهزة تكلّف ملايين الدولارات، وحمايتها تحمي الاستثمار وفرص العمل.',q:'أحمي المعدات والأصول من الخسائر'},
+ {k:'economy',h:'مساعدة اقتصاد البلد والشعب',d:'نجاح القطاع النفطي ينعكس على الخدمات والرواتب ومعيشة الناس.',q:'أدعم اقتصاد بلدي وحياة الناس'},
+ {k:'predict',h:'التنبؤ بالمشكلات قبل وقوعها',d:'قراءة بيانات الآبار والمكامن لمنع الأعطال قبل أن تتحول إلى كوارث.',q:'أتوقّع المشكلات قبل وقوعها وأمنعها'},
+ {k:'efficiency',h:'زيادة الكفاءة',d:'إنتاج أكبر بهدر أقل، وفي ذلك خدمة للشركة والبيئة والوطن.',q:'أرفع الكفاءة وأقلّل الهدر'}
+];
+var MXQ=['q1','q2','q3','q4'];
+var MXN={q1:'سوّيه هسه',q2:'خطّط له',q3:'قلّله أو أجّله',q4:'احذفه'};
+var MXF={q1:'مهم ومستعجل',q2:'مهم وغير مستعجل',q3:'مستعجل وغير مهم',q4:'لا مهم ولا مستعجل'};
+var MXCARDS=[
+ {t:'امتحان في هندسة المكامن بعد يومين',q:'q1',e:'يخدم تخرجك وموعده قريب. لا تأجله.'},
+ {t:'رسالة في كروب الواتساب ينتظرون ردك عليها هسه',q:'q3',e:'الإشعار يصيح فيحسّسك بالاستعجال، بس الرد عليه هسه ما يقرّبك من غايتك. أجّله لوقت استراحتك.'},
+ {t:'كتابة الفصل الأول من مشروع التخرج، والتسليم بعد شهرين',q:'q2',e:'مهم جداً وموعده بعيد، فيتأجل لين يصير مستعجل ويطلع ضعيف. خطّط له وخصص له وقتاً ثابتاً. هذا حجر كبير.'},
+ {t:'مسلسل جديد نزلت كل حلقاته اليوم',q:'q4',e:'لا هو مهم ولا عنده موعد. وقته يضيع بلا مقابل. احذفه أو خليه مكافأة بعد ما تنجز.'},
+ {t:'التسجيل بدورة سلامة ينتهي غداً',q:'q1',e:'السلامة أساس عمل مهندس النفط، والتسجيل ينتهي غداً. سجّل هسه.'},
+ {t:'صديق يتصل ويريدك تروح وياه مشوار هسه',q:'q3',e:'مستعجل لصاحبك لأنه يريدك هسه، بس ما يقرّبك من غايتك. اعتذر بلطف أو حدد وقتاً ثانياً.'},
+ {t:'تطوير لغتك الإنكليزية للعمل بشركة أجنبية',q:'q2',e:'مهمة لسوق العمل، وما أحد يحدد لها موعداً. خطّط لها بوقت ثابت كل يوم.'},
+ {t:'متابعة أخبار الفنانين',q:'q4',e:'ممتعة، بس لا مهمة ولا مستعجلة. إذا ما تحذفها، خلّها لآخر اليوم.'},
+ {t:'تسليم تقرير مختبر الحفر اليوم',q:'q1',e:'مادة دراسية وموعدها اليوم. خلّصها أول شي.'},
+ {t:'اجتماع طارئ اليوم لترتيب تفاصيل حفلة التخرج',q:'q3',e:'الحفلة حلوة، بس تفاصيلها ما تحدد مستقبلك، والاستعجال جاي من ضغط الشعبة. حدّد لها وقتاً قصيراً أو فوّض صديقاً.'},
+ {t:'تعلّم الذكاء الاصطناعي لتحليل بيانات الآبار',q:'q2',e:'مهارة تميّزك بسوق العمل، وما أحد يطالبك بيها هسه. خطّط لها قبل ما يسبقك غيرك.'},
+ {t:'تصفح السوشال ميديا بلا هدف',q:'q4',e:'ما أكو موعد وما أكو فائدة. هذا رمل يملي الصندوق ويطرد الأحجار. احذفه أو حدّد له وقتاً صغيراً.'}
+];
+var KEY='oil-program-v3',S={name:'',section:'',num:'',subjects:[],whys:[],picks:[],draft:[],tasks:{},mx:[],step:'intake'},R=[],P=[],RET=false,SAVED=true;
+function $(i){return document.getElementById(i)}
+function load(){
+  try{
+    var s=JSON.parse(localStorage.getItem(KEY)||'null');
+    if(s){
+      S.name=s.name||'';
+      S.section=s.section||'';
+      S.num=s.num||'';
+      S.tasks=(s.tasks&&typeof s.tasks==='object')?s.tasks:{};
+      S.subjects=Array.isArray(s.subjects)?s.subjects:[];
+      S.whys=Array.isArray(s.whys)?s.whys:[];
+      S.picks=Array.isArray(s.picks)?s.picks:[];
+      S.draft=Array.isArray(s.draft)?s.draft:[];
+      S.mx=(Array.isArray(s.mx)?s.mx:[]).filter(function(x){return MXQ.indexOf(x)>=0}).slice(0,MXCARDS.length);
+      S.step=s.step||'intake';
+    }
+  }catch(e){}
+}
+function save(){
+  try{localStorage.setItem(KEY,JSON.stringify(S));SAVED=true}catch(e){SAVED=false}
+  try{var po=$('pc-out');if(po)po.value=enc()}catch(e){}
+  $('savenote').textContent=SAVED?'تُحفظ اختياراتك تلقائياً على هذا الجهاز، وتجدها عند عودتك.':'تعذّر الحفظ على هذا الجهاز، وقد يكون السبب التصفح الخاص. أكمل البرنامج في جلسة واحدة.';
+}
+function show(id){
+  ['s-intake','s-welcome','s-pick','s-explain','s-final','s-p2a','s-p2m','s-p2b','s-p2done'].forEach(function(x){$(x).hidden=(x!==id)});
+  S.step=id;save();
+  window.scrollTo(0,0);
+}
+function checks(box,name,items){
+  box.textContent='';
+  items.forEach(function(it,i){
+    var l=document.createElement('label');l.className='choice';
+    var inp=document.createElement('input');inp.type='checkbox';inp.name=name;inp.value=String(i);
+    var s=document.createElement('span');s.className='bx';s.textContent=it;
+    l.appendChild(inp);l.appendChild(s);box.appendChild(l);
+  });
+}
+function vals(name){
+  return Array.prototype.map.call(document.querySelectorAll('input[name="'+name+'"]:checked'),function(r){return parseInt(r.value,10)});
+}
+function setChecks(ix){
+  document.querySelectorAll('input[name="why"]').forEach(function(c){c.checked=ix.indexOf(parseInt(c.value,10))>=0});
+}
+function whyByKey(k){return WHYS.filter(function(w){return w.k===k})[0]}
+function listAr(a){return a.join('، ')}
+function joinAnd(a){
+  if(a.length<2)return a.join('');
+  return a.slice(0,-1).join('، ')+' و'+a[a.length-1];
+}
+
+var sbox=$('subj');
+SUBJECTS.forEach(function(s,i){
+  var b=document.createElement('button');b.type='button';b.className='rk';
+  b.setAttribute('aria-pressed','false');b.setAttribute('data-i',i);
+  var bd=document.createElement('span');bd.className='bd';bd.setAttribute('aria-hidden','true');
+  var t=document.createElement('span');t.textContent=s;
+  b.appendChild(bd);b.appendChild(t);
+  b.addEventListener('click',function(){
+    var p=R.indexOf(i);
+    if(p>=0)R.splice(p,1);else R.push(i);
+    $('e-subj').textContent='';
+    paintRank();
+  });
+  sbox.appendChild(b);
+});
+function paintRank(){
+  sbox.querySelectorAll('.rk').forEach(function(b){
+    var i=parseInt(b.getAttribute('data-i'),10),p=R.indexOf(i);
+    b.setAttribute('aria-pressed',p>=0?'true':'false');
+    b.querySelector('.bd').textContent=p>=0?String(p+1):'';
+  });
+  $('cnt').textContent=R.length?('اخترت '+R.length+' من '+SUBJECTS.length+' مواد.'):'لم تختر شيئاً بعد.';
+}
+$('clr').addEventListener('click',function(){R=[];paintRank()});
+checks($('whyopts'),'why',WHYOPTS.map(function(o){return o.t}));
+$('whyopts').addEventListener('change',function(){S.picks=vals('why');save()});
+
+function welcome(){
+  $('w-title').textContent=(RET?'أهلاً بعودتك يا ':'أهلاً بك يا ')+S.name+' في برنامج تأهيل طلبة المرحلة الرابعة لسوق العمل';
+  var sb;
+  if(S.subjects.length===1){sb='اخترت «'+S.subjects[0]+'» مادةً مفضلة لديك في هندسة النفط والغاز.'}
+  else{sb='رتّبتَ موادك المفضلة، وأحبّها إليك «'+S.subjects[0]+'»، يليها «'+S.subjects[1]+'»'+(S.subjects.length>2?' وبقية ما اخترت':'')+'.'}
+  $('w-body').textContent=sb+' وهذا مفتاح مهم، فالإنسان ينجح أكثر فيما يحب. صُمّم هذا البرنامج لينقلك من الدراسة إلى العمل وأنت تعرف لماذا تسلك هذا الطريق.';
+  show('s-welcome');
+}
+$('go1').addEventListener('click',function(){
+  var n=$('name').value.trim().replace(/\s+/g,' '),ok=true;
+  var sec=$('sec').value.trim().replace(/\s+/g,' ');
+  var num=$('num').value.trim().replace(/[٠-٩]/g,function(d){return String(d.charCodeAt(0)-1632)}).replace(/[۰-۹]/g,function(d){return String(d.charCodeAt(0)-1776)});
+  $('e-name').textContent='';$('e-sec').textContent='';$('e-num').textContent='';$('e-subj').textContent='';
+  if(n.split(' ').filter(Boolean).length<3){$('e-name').textContent='اكتب اسمك الثلاثي كاملاً (ثلاث كلمات على الأقل).';ok=false}
+  if(!sec){$('e-sec').textContent='اكتب شعبتك.';ok=false}
+  if(!/^[0-9]{1,12}$/.test(num)){$('e-num').textContent='اكتب رقمك بالأرقام فقط.';ok=false}
+  if(!R.length){$('e-subj').textContent='اختر مادة واحدة على الأقل.';ok=false}
+  if(!ok)return;
+  S.name=n;S.section=sec;S.num=num;S.subjects=R.map(function(i){return SUBJECTS[i]});save();
+  if(S.whys.length){renderFinal()}else{welcome()}
+});
+$('go2').addEventListener('click',function(){setChecks(S.picks);show('s-pick')});
+$('go3').addEventListener('click',function(){
+  var ix=vals('why');$('e-why').textContent='';
+  if(!ix.length){$('e-why').textContent='اختر عبارة واحدة على الأقل للمتابعة.';return}
+  S.picks=ix;
+  var keys=[];
+  ix.forEach(function(i){var k=WHYOPTS[i].k;if(k!=='what'&&keys.indexOf(k)<0)keys.push(k)});
+  P=keys.slice();S.draft=P.slice();
+  openExplain();
+});
+function openExplain(){
+  var keys=[],whats=0;
+  S.picks.forEach(function(i){
+    var k=WHYOPTS[i]&&WHYOPTS[i].k;
+    if(!k)return;
+    if(k==='what')whats++;else if(keys.indexOf(k)<0)keys.push(k);
+  });
+  var fb=$('fb');fb.textContent='';
+  var b=document.createElement('p');
+  if(!keys.length){
+    b.textContent='اختياراتك كلها تصف ما تحصل عليه أو ما تفعله، وهذا مهم، لكنه ليس الـ Why. الـ Why هو السبب الأعمق الذي يمنحك القدرة على المواصلة حين يصعب الطريق.';
+  }else if(!whats){
+    b.textContent='اختياراتك كلها Why حقيقي: '+joinAnd(keys.map(function(k){return '«'+whyByKey(k).h+'»'}))+'. فهي تجيب عن سؤال لماذا، لا عن سؤال ماذا. اطّلع على الأمثلة التالية وتأكّد أنها الأقرب إليك.';
+  }else{
+    b.textContent='من اختياراتك ما هو Why حقيقي: '+joinAnd(keys.map(function(k){return '«'+whyByKey(k).h+'»'}))+'. وبعضها يصف ما تحصل عليه أو ما تفعله، وهو مهم، لكنه ليس الغاية نفسها. اطّلع على الأمثلة التالية.';
+  }
+  fb.appendChild(b);
+  var box=$('cards');box.textContent='';
+  WHYS.forEach(function(w){
+    var c=document.createElement('button');c.type='button';c.className='card';
+    c.setAttribute('data-k',w.k);
+    c.setAttribute('aria-pressed',P.indexOf(w.k)>=0?'true':'false');
+    var h=document.createElement('b');h.textContent=w.h;
+    var d=document.createElement('span');d.textContent=w.d;
+    c.appendChild(h);c.appendChild(d);
+    c.addEventListener('click',function(){
+      var p=P.indexOf(w.k);
+      if(p>=0)P.splice(p,1);else P.push(w.k);
+      S.draft=P.slice();save();
+      $('e-card').textContent='';
+      c.setAttribute('aria-pressed',P.indexOf(w.k)>=0?'true':'false');
+    });
+    box.appendChild(c);
+  });
+  $('e-card').textContent=P.length?'':'اختر ما يعنيك من هذه الخمسة.';
+  show('s-explain');
+}
+$('back1').addEventListener('click',function(){setChecks(S.picks);show('s-pick')});
+$('go4').addEventListener('click',function(){
+  if(!P.length){$('e-card').textContent='اختر غاية واحدة على الأقل من الخمسة للمتابعة.';return}
+  S.whys=P.slice();save();renderFinal();
+});
+function renderFinal(){
+  var qs=S.whys.map(function(k){return whyByKey(k).q});
+  $('f-id').textContent=S.name+' · الشعبة: '+S.section+' · الرقم: '+S.num;
+  $('f-quote').textContent='أدرس هندسة النفط والغاز حتى:';
+  var ul=$('f-goals');ul.textContent='';
+  qs.forEach(function(q){var li=document.createElement('li');li.textContent=q;ul.appendChild(li)});
+  $('f-sub').textContent=(S.subjects.length===1?'مادتك المفضلة: ':'موادك المفضلة بالترتيب: ')+listAr(S.subjects)+'.';
+  $('conf').hidden=true;
+  show('s-final');
+}
+$('edit').addEventListener('click',function(){
+  P=S.whys.slice();S.draft=P.slice();
+  setChecks(S.picks);
+  show('s-pick');
+});
+$('editinfo').addEventListener('click',function(){
+  $('name').value=S.name;$('sec').value=S.section;$('num').value=S.num;
+  R=S.subjects.map(function(x){return SUBJECTS.indexOf(x)}).filter(function(i){return i>=0});
+  paintRank();
+  show('s-intake');
+});
+$('reset').addEventListener('click',function(){$('conf').hidden=false});
+$('no').addEventListener('click',function(){$('conf').hidden=true});
+$('yes').addEventListener('click',function(){
+  S={name:'',section:'',num:'',subjects:[],whys:[],picks:[],draft:[],tasks:{},mx:[],step:'intake'};R=[];P=[];RET=false;
+  $('name').value='';$('sec').value='';$('num').value='';paintRank();setChecks([]);if(window.P2)P2.sync();if(window.MX)MX.sync();
+  $('conf').hidden=true;
+  show('s-intake');
+});
+
+var P2=(function(){
+  var NS='http://www.w3.org/2000/svg';
+  var full=$('medFull');
+  for(var r=0;r<8;r++){
+    var y=204-r*22,odd=r%2===1,n=odd?5:6,x0=odd?140:128;
+    for(var i=0;i<n;i++){
+      var c=document.createElementNS(NS,'circle');
+      c.setAttribute('cx',x0+i*24);c.setAttribute('cy',y);c.setAttribute('r',11);
+      full.appendChild(c);
+    }
+  }
+  var gs={big:0,med:0,sand:0,fail:0};
+  var gmsg=$('msg'),bx=$('bx'),gopts=$('opts');
+  var startMsg='لسا ما اخترت شي.';
+  var errBig='خطأ في إدارة الأولويات! الأمور الكبيرة لازم تدخل أول. لما ملينا الصندوق بالصغيرة، ما بقى مكان للكبيرة.';
+  var errMed='خطأ في إدارة الأولويات! الأحجار الوسط أهم من الصغيرة، وكان لازم تدخل قبلها. هسه ما بقى لها مكان.';
+  var win='تمام! الكبيرة أول، بعدها الوسط، والصغيرة أخيراً تسد الفراغات. الدرس: رتّب حسب الأهمية، الأهم أول.';
+  function setMsg(t,c){gmsg.textContent=t;gmsg.className='msg'+(c?' '+c:'')}
+  function on(id){$(id).classList.remove('off')}
+  function off(id){$(id).classList.add('off')}
+  function shake(){bx.classList.remove('shake');void bx.getBoundingClientRect();bx.classList.add('shake')}
+  function mark(k){$('opt-'+k).setAttribute('data-done','1')}
+  function play(k){
+    if(gs.fail||gs[k])return;
+    if(k==='big'){
+      if(gs.med||gs.sand){
+        gs.fail=1;on('bigOut');on('xmark');shake();
+        gopts.classList.add('locked');setMsg(errBig,'bad');return;
+      }
+      gs.big=1;on('big');mark('big');
+      setMsg('زين! الأحجار الكبيرة دخلت أول.','ok');return;
+    }
+    if(k==='med'&&gs.sand){
+      gs.fail=1;on('medOut');on('xmark');shake();
+      gopts.classList.add('locked');setMsg(errMed,'bad');return;
+    }
+    gs[k]=1;mark(k);
+    if(k==='sand'){on('sand')}else{on(gs.big?'medGap':'medFull')}
+    if(gs.big&&gs.med&&gs.sand){setMsg(win,'ok');return}
+    if(gs.big&&k==='med'){setMsg('الوسط استقر بين الكبيرة. شنو بعد؟','ok');return}
+    setMsg((k==='sand'?'دخلت الأحجار الصغيرة.':'دخلت الأحجار الوسط.')+' شنو بعد؟','');
+  }
+  document.querySelectorAll('.opt').forEach(function(b){
+    b.addEventListener('click',function(){play(b.getAttribute('data-k'))});
+  });
+  $('rst').addEventListener('click',function(){
+    gs={big:0,med:0,sand:0,fail:0};
+    ['big','medGap','medFull','sand','bigOut','medOut','xmark'].forEach(off);
+    gopts.classList.remove('locked');
+    document.querySelectorAll('.opt').forEach(function(b){b.removeAttribute('data-done')});
+    setMsg(startMsg,'');
+  });
+
+  var tasks=[
+    {id:'t11',t:'أتابع أخبار الرياضة واللاعبين والأندية'},
+    {id:'t6',t:'أنجز مشروع تخرج استثنائي'},
+    {id:'t2',t:'أطور مهاراتي بالحاسوب'},
+    {id:'t13',t:'أتعلم مهارات الحوار والتواصل الفعال'},
+    {id:'t14',t:'أتصفح وسائل التواصل الاجتماعي'},
+    {id:'t15',t:'أشاهد التلفاز'},
+    {id:'t8',t:'أسوي حساب LinkedIn'},
+    {id:'t4',t:'أدخل دورات سلامة'},
+    {id:'t10',t:'أسوي حفلة تخرج استثنائية'},
+    {id:'t1',t:'أطور لغتي الإنكليزية'},
+    {id:'t12',t:'أتابع أخبار الفنانين'},
+    {id:'t3',t:'أتعلم ذكاء اصطناعي'},
+    {id:'t7',t:'أعمل CV'},
+    {id:'t9',t:'أتعلم إدارة الوقت'},
+    {id:'t5',t:'أدخل دورات تخصصية'}
+  ];
+  tasks.forEach(function(t){t.b=null});
+  var CAP=5,sel=null,GN={big:'كبيرة',med:'وسط',sand:'صغيرة'};
+  var pool=$('pool'),hint=$('hint');
+  function setHint(t,c){hint.textContent=t;hint.className='msg'+(c?' '+c:'')}
+  function persist(){
+    var m={};tasks.forEach(function(t){if(t.b)m[t.id]=t.b});
+    S.tasks=m;save();
+  }
+  function sync(){
+    var m=S.tasks||{},c={big:0,med:0,sand:0};
+    tasks.forEach(function(t){
+      t.b=null;var g=m[t.id];
+      if((g==='big'||g==='med'||g==='sand')&&c[g]<CAP){t.b=g;c[g]++}
+    });
+    sel=null;render();
+    var done=tasks.filter(function(t){return t.b}).length;
+    setHint(done?'رجعنا لترتيبك السابق.':'اضغط على مهمة من المبعثرة أول.','');
+  }
+  function chip(t){
+    var b=document.createElement('button');
+    b.className='chip';b.type='button';b.textContent=t.t;
+    b.setAttribute('aria-pressed',sel===t.id?'true':'false');
+    b.addEventListener('click',function(){
+      if(t.b){t.b=null;sel=null;persist();render();setHint('رجعت المهمة للمبعثرة.','');return}
+      sel=(sel===t.id)?null:t.id;
+      render();
+      setHint(sel?'اختر وين تروح: «'+t.t+'».':'اضغط على مهمة من المبعثرة أول.','');
+    });
+    return b;
+  }
+  function render(){
+    pool.textContent='';
+    var rest=tasks.filter(function(t){return !t.b});
+    if(!rest.length){
+      var p=document.createElement('p');p.className='empty';p.textContent='كل المهام انرتبت.';pool.appendChild(p);
+    }
+    rest.forEach(function(t){pool.appendChild(chip(t))});
+    ['big','med','sand'].forEach(function(g){
+      var box=$('g-'+g);box.textContent='';
+      var items=tasks.filter(function(t){return t.b===g});
+      $('n-'+g).textContent=items.length+'/'+CAP;
+      if(!items.length){
+        var p=document.createElement('p');p.className='none';p.textContent='ما أكو مهام هنا بعد.';box.appendChild(p);
+      }
+      items.forEach(function(t){box.appendChild(chip(t))});
+    });
+  }
+  document.querySelectorAll('.tgt').forEach(function(b){
+    b.addEventListener('click',function(){
+      var g=b.getAttribute('data-b');
+      var t=tasks.filter(function(x){return x.id===sel})[0];
+      if(!t){setHint('اختر مهمة من المبعثرة أول.','bad');return}
+      var cnt=tasks.filter(function(x){return x.b===g}).length;
+      if(cnt>=CAP){setHint('مجموعة «'+GN[g]+'» امتلأت ('+CAP+' مهام). ارجع مهمة منها للمبعثرة، أو اختار مجموعة ثانية.','bad');return}
+      t.b=g;sel=null;persist();render();
+      var left=tasks.filter(function(x){return !x.b}).length;
+      if(!left){setHint('ترتيبك جاهز: 5 كبيرة و5 وسط و5 صغيرة. اضغط «تثبيت ترتيبي».','ok');return}
+      setHint('تم. باقي '+left+' مهمة مبعثرة.','');
+    });
+  });
+  $('trst').addEventListener('click',function(){
+    tasks.forEach(function(t){t.b=null});sel=null;persist();render();
+    setHint('اضغط على مهمة من المبعثرة أول.','');
+  });
+  function ready(){return tasks.every(function(t){return t.b})}
+  function lists(){
+    var L={big:[],med:[],sand:[]};
+    tasks.forEach(function(t){if(t.b)L[t.b].push(t.t)});
+    return L;
+  }
+  return {sync:sync,ready:ready,lists:lists};
+})();
+
+var MX=(function(){
+  var N=MXCARDS.length,cur=0,locked=false;
+  var qs=document.querySelectorAll('#mx-grid .mq');
+  var fb=$('mx-fb'),nxt=$('mx-next');
+  function compass(){
+    var hs=S.whys.map(function(k){var w=whyByKey(k);return w?'«'+w.h+'»':''}).filter(Boolean);
+    $('mx-compass').textContent=hs.length?'المهم عندك هو ما يقرّبك من: '+joinAnd(hs)+'.':'المهم عندك هو ما يقرّبك من غايتك.';
+  }
+  function results(){
+    var score=0,miss=[];
+    MXCARDS.forEach(function(c,i){if(S.mx[i]===c.q)score++;else miss.push(i)});
+    $('mx-score').textContent='نتيجتك: '+score+' من '+N;
+    $('mx-note').textContent=score>=10?'ممتاز. صرت تفرّق بين المهم والمستعجل.':(score>=7?'زين. باقي كم حالة تحتاج مراجعة، شوفها تحت.':'لا تقلق، هذا التمييز يحتاج تمرين. راجع الحالات تحت وبعدها أعد اللعبة.');
+    var rv=$('mx-rev');rv.textContent='';
+    if(!miss.length)return;
+    var h=document.createElement('h2');h.textContent='حالات تستاهل المراجعة';rv.appendChild(h);
+    miss.forEach(function(i){
+      var c=MXCARDS[i],d=document.createElement('div');d.className='rv';
+      var b=document.createElement('b');b.textContent=c.t;
+      var p=document.createElement('p');
+      p.textContent='اخترت «'+(MXN[S.mx[i]]||'')+'». الصح «'+MXN[c.q]+'» ('+MXF[c.q]+'). '+c.e;
+      d.appendChild(b);d.appendChild(p);rv.appendChild(d);
+    });
+  }
+  function render(){
+    compass();
+    var play=$('mx-play'),res=$('mx-res');
+    if(cur>=N){play.hidden=true;res.hidden=false;results();return}
+    res.hidden=true;play.hidden=false;
+    $('mx-cnt').textContent='بطاقة '+(cur+1)+' من '+N;
+    $('mx-card').textContent=MXCARDS[cur].t;
+    qs.forEach(function(b){b.disabled=false;b.classList.remove('right');b.classList.remove('wrong')});
+    fb.hidden=true;nxt.hidden=true;locked=false;
+  }
+  function answer(q){
+    if(locked||cur>=N)return;
+    var c=MXCARDS[cur],ok=(q===c.q);
+    S.mx[cur]=q;save();locked=true;
+    qs.forEach(function(b){
+      var k=b.getAttribute('data-q');
+      b.disabled=true;
+      if(k===c.q)b.classList.add('right');
+      else if(k===q)b.classList.add('wrong');
+    });
+    fb.textContent=(ok?'صح، '+MXF[c.q]+'. ':'مو بالضبط. هذي «'+MXF[c.q]+'»، يعني «'+MXN[c.q]+'». ')+c.e;
+    fb.className='msg '+(ok?'ok':'bad');
+    fb.hidden=false;
+    nxt.textContent=(cur===N-1)?'شوف نتيجتك':'البطاقة التالية';
+    nxt.hidden=false;
+    try{nxt.scrollIntoView({block:'nearest'})}catch(e){}
+  }
+  qs.forEach(function(b){b.addEventListener('click',function(){answer(b.getAttribute('data-q'))})});
+  nxt.addEventListener('click',function(){cur++;render();window.scrollTo(0,0)});
+  $('mx-redo').addEventListener('click',function(){S.mx=[];save();cur=0;render();window.scrollTo(0,0)});
+  function sync(){cur=Math.min(S.mx.length,N);render()}
+  return {sync:sync};
+})();
+
+function renderP2Done(){
+  var L=P2.lists();
+  [['big','d-big'],['med','d-med'],['sand','d-sand']].forEach(function(p){
+    var ul=$(p[1]);ul.textContent='';
+    L[p[0]].forEach(function(t){var li=document.createElement('li');li.textContent=t;ul.appendChild(li)});
+  });
+  show('s-p2done');
+}
+$('go5').addEventListener('click',function(){show('s-p2a')});
+$('back2').addEventListener('click',function(){renderFinal()});
+$('go6').addEventListener('click',function(){MX.sync();show('s-p2m')});
+$('back3').addEventListener('click',function(){MX.sync();show('s-p2m')});
+$('mx-back').addEventListener('click',function(){show('s-p2a')});
+$('mx-back2').addEventListener('click',function(){show('s-p2a')});
+$('mx-go').addEventListener('click',function(){P2.sync();show('s-p2b')});
+$('go7').addEventListener('click',function(){
+  if(!P2.ready()){$('e-p2').textContent='رتّب كل المهام الخمس عشرة أول، خمس في كل مجموعة.';return}
+  $('e-p2').textContent='';renderP2Done();
+});
+$('redo').addEventListener('click',function(){P2.sync();show('s-p2b')});
+$('tofinal').addEventListener('click',function(){renderFinal()});
+
+function enc(){
+  try{return 'OILP1:'+btoa(unescape(encodeURIComponent(JSON.stringify(S))))}catch(e){return ''}
+}
+function dec(c){
+  c=String(c||'').replace(/\s+/g,'');
+  if(c.indexOf('OILP1:')!==0)return null;
+  try{return JSON.parse(decodeURIComponent(escape(atob(c.slice(6)))))}catch(e){return null}
+}
+function applyCode(o){
+  if(!o||typeof o!=='object')return false;
+  var num=String(o.num||'');
+  if(!/^[0-9]{1,12}$/.test(num))num='';
+  var subs=(Array.isArray(o.subjects)?o.subjects:[]).filter(function(x){return SUBJECTS.indexOf(x)>=0});
+  var whys=(Array.isArray(o.whys)?o.whys:[]).filter(function(k){return whyByKey(k)});
+  var picks=(Array.isArray(o.picks)?o.picks:[]).filter(function(i){return typeof i==='number'&&WHYOPTS[i]});
+  var draft=(Array.isArray(o.draft)?o.draft:[]).filter(function(k){return whyByKey(k)});
+  var tk={},c={big:0,med:0,sand:0};
+  if(o.tasks&&typeof o.tasks==='object'){
+    Object.keys(o.tasks).forEach(function(id){
+      var g=o.tasks[id];
+      if(/^t[0-9]{1,2}$/.test(id)&&(g==='big'||g==='med'||g==='sand')&&c[g]<5){tk[id]=g;c[g]++}
+    });
+  }
+  var mx=(Array.isArray(o.mx)?o.mx:[]).filter(function(x){return MXQ.indexOf(x)>=0}).slice(0,MXCARDS.length);
+  var steps=['intake','welcome','pick','explain','final','p2a','p2m','p2b','p2done'];
+  var step=String(o.step||'').replace(/^s-/,'');
+  if(steps.indexOf(step)<0)step='welcome';
+  S={name:String(o.name||'').slice(0,80),section:String(o.section||'').slice(0,20),num:num,subjects:subs,whys:whys,picks:picks,draft:draft,tasks:tk,mx:mx,step:'s-'+step};
+  save();
+  return true;
+}
+$('pc-copy').addEventListener('click',function(){
+  var o=$('pc-out'),m=$('pc-msg');
+  o.value=enc();
+  function fb(){
+    o.focus();o.select();
+    var ok=false;try{ok=document.execCommand('copy')}catch(e){}
+    m.textContent=ok?'تم نسخ الرمز.':'حدّد الرمز كله وانسخه يدوياً.';
+  }
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(o.value).then(function(){m.textContent='تم نسخ الرمز.'},fb);
+  }else{fb()}
+});
+$('pc-go').addEventListener('click',function(){
+  var m=$('pc-msg'),o=dec($('pc-in').value);
+  if(!o||!applyCode(o)){m.textContent='الرمز غير صحيح. انسخه كاملاً من الإصدار السابق وحاول مرة ثانية.';return}
+  $('pc-in').value='';
+  boot();
+  m.textContent='تم استرجاع تقدمك.';
+});
+
+function boot(){
+  S.subjects=S.subjects.filter(function(x){return SUBJECTS.indexOf(x)>=0});
+  $('name').value=S.name;$('sec').value=S.section;$('num').value=S.num;
+  R=S.subjects.map(function(x){return SUBJECTS.indexOf(x)}).filter(function(i){return i>=0});
+  paintRank();
+  S.whys=S.whys.filter(function(k){return whyByKey(k)});
+  S.picks=S.picks.filter(function(i){return WHYOPTS[i]});
+  setChecks(S.picks);
+  P=S.draft.filter(function(k){return whyByKey(k)});
+  P2.sync();
+  MX.sync();
+  if(!(S.name&&S.section&&S.num&&S.subjects.length)){show('s-intake');return}
+  RET=true;
+  var st=String(S.step||'').replace(/^s-/,'');
+  if(st==='p2done'&&P2.ready()&&S.whys.length){renderP2Done()}
+  else if(st==='p2m'&&S.whys.length){show('s-p2m')}
+  else if(st==='p2b'&&S.whys.length){show('s-p2b')}
+  else if(st==='p2a'&&S.whys.length){show('s-p2a')}
+  else if(st==='final'&&S.whys.length){renderFinal()}
+  else if(st==='explain'&&S.picks.length){openExplain()}
+  else if(st==='pick'){show('s-pick')}
+  else if(st==='intake'){show('s-intake')}
+  else{welcome()}
+}
+load();
+boot();
+</script>
+
+</body></html>
